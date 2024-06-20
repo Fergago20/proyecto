@@ -3,6 +3,10 @@
 #include<string.h>
 #include"nominas.h"
 
+extern void ordenamiento(){
+    
+}
+
 extern void impuesto(int nt, struct noma *nomi_lo){
     
     system("cls");
