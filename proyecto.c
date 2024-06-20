@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include "nom.h"
 
 int main(){
     //Variables para menú y datos importantes
@@ -31,7 +32,7 @@ case 1:
     break;
 
 case 2:
-
+    nom ();
 break;
 default:
     break;
