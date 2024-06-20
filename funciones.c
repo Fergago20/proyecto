@@ -43,7 +43,8 @@ extern void impuesto(int nt, struct noma *nomi_lo){
         {
              nomi_lo[i].IR=0;
         }
-        
+      fflush(stdin);
+      System("cls");  
     }
     
 }
@@ -125,6 +126,7 @@ int elec, nt;
                 nomi[i].salario=((float)nomi[i].Horas_mes*nomi[i].sal_hora)+(((float)nomi[i].Horas_trabajadas-(float)nomi[i].Horas_mes)*nomi[i].sal_hextra);
                 nomi[i].Salario_neto=((float)nomi[i].Horas_mes*nomi[i].sal_hora);
             }
+            fflush(stdin);
             system("cls");
         }
         impuesto(nt, nomi);
