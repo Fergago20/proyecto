@@ -3,6 +3,51 @@
 #include<string.h>
 #include"nominas.h"
 
+extern void impuesto(int nt, struct noma *nomi_lo){
+    
+    system("cls");
+
+    //Cálculos de impuestos y vacaciones
+
+    for (int i = 0; i < nt; i++)
+    {
+        nomi_lo[i].aguinaldo=nomi_lo[i].Salario_neto;
+        printf("Dias tomados hasta ahora por el trabajador %d.\n", i+1);
+        scanf("%d", &nomi_lo[i].Dias_vac);
+        nomi_lo[i].vacacionesd= 30 - nomi_lo[i].Dias_vac;
+        nomi_lo[i].vacaciones= (float)nomi_lo[i].vacacionesd*(nomi_lo[i].Salario_neto/30);
+        nomi_lo[i].INNS_Lab= (double)nomi_lo[i].Salario_neto*0.07;
+
+        if (nt<50)
+        {
+            nomi_lo[i].INNS_Patr= (double)nomi_lo[i].Salario_neto * 0.22;
+        }else
+        {
+            nomi_lo[i].INNS_Patr= (double)nomi_lo[i].Salario_neto * 0.225;
+        }
+
+        if ((nomi_lo[i].Salario_neto*12>100000) && (nomi_lo[i].Salario_neto*12<=200000))
+        {
+            nomi_lo[i].IR= (double)nomi_lo[i].Salario_neto*0.15;
+        }
+        else if ((nomi_lo[i].Salario_neto*12>200000) && (nomi_lo[i].Salario_neto*12<=350000))
+        {
+            nomi_lo[i].IR= (double)nomi_lo[i].Salario_neto*0.2;
+        }else if ((nomi_lo[i].Salario_neto*12>350000) && (nomi_lo[i].Salario_neto*12<=500000))
+        {
+            nomi_lo[i].IR= (double)nomi_lo[i].Salario_neto*0.25;
+        }else if ((nomi_lo[i].Salario_neto*12>500000))
+        {
+            nomi_lo[i].IR= (double)nomi_lo[i].Salario_neto*0.3;
+        }else
+        {
+             nomi_lo[i].IR=0;
+        }
+        
+    }
+    
+}
+
 extern void nom (){
 int elec, nt;
     system("cls");
@@ -36,7 +81,6 @@ int elec, nt;
     {
         //Recolección de datos
         system ("cls");
-        pt=fopen("nominas.txt", "w");
         char cad1[7], cad2[7], se[5];
         printf("Ingrese cantidad de trabajadores\n");
         scanf("%d", &nt);
@@ -44,7 +88,7 @@ int elec, nt;
         for (int i = 0; i < nt; i++)
         {
             printf("\nIngrese trabajador %d \n" , i+1);
-            printf("Nombre del trabajado\n");
+            printf("Nombre del trabajador\n");
             scanf("%s", nomi[i].N_trabajador);
             printf("Apellido del trabajador\n");
             scanf("%s", nomi[i].apellido);
@@ -83,11 +127,11 @@ int elec, nt;
             }
             system("cls");
         }
+        impuesto(nt, nomi);
     }  
     break;
     default:
     return;
         break;
     }
-
 }
