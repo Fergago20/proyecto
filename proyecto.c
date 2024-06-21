@@ -1,3 +1,5 @@
+
+/*  ************////////////////  CODIGO CONFOORME EL PROGRAMA CREADO EN PSEINT ///////////////*********************** */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
