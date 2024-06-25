@@ -2,188 +2,108 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-
+#include "nom.h"
 #define BALANCE_FILE "balance.txt"
-#define EMPLEADOS_FILE "empleados.txt"
 
-// Definición global de la estructura Empleado
-struct Empleado {
-    char nombre[100];
-    float salario;
-};
 
-// Funciones para operaciones CRUD de empleados
-void agregarEmpleado();
-void mostrarEmpleados();
-void actualizarEmpleado();
-void eliminarEmpleado();
+// Funciones para operaciones CRUD de activos pasivos
+
 
 float leerBalance();
 void escribirBalance(float balance);
 void balance(float act, float pas);
 void act_pas();
-void nom();
-void leerCadena(const char* mensaje, char* cadena, int longitud);
-int leerEntero(const char* mensaje);
-float leerFlotante(const char* mensaje);
+void leerCadena (const char* mensaje, char* cadena, int longitud) {
+    printf("%s", mensaje);
+    fgets(cadena, longitud, stdin);
+    // Eliminar el salto de línea al final
+    size_t len = strlen(cadena);
+    if (len > 0 && cadena[len-1] == '\n') {
+        cadena[len-1] = '\0';
+    }
+}
+int leerEntero(const char* mensaje) {
+    int valor;
+    printf("%s", mensaje);
+    scanf("%d", &valor);
+    return valor;
+}
+float leerFlotante(const char* mensaje) {
+    float valor;
+    printf("%s", mensaje);
+    scanf("%f", &valor);
+    return valor;
+}
 
 int main() {
-    char nombre_emp[100], gerente[100], ser_pro[100];
-    leerCadena("Ingrese el nombre de la empresa: ", nombre_emp, sizeof(nombre_emp));
-    leerCadena("Ingrese nombre del gerente: ", gerente, sizeof(gerente));
-    leerCadena("Ingrese el producto o servicio que ofrece: ", ser_pro, sizeof(ser_pro));
+    char n_empresa[20], n_gerente[20], pro_ser[20];
+    printf("Ingrese nombre de la empresa\n");
+    scanf("%s", n_empresa);
+    printf("\nNombre del gerente\n");
+    scanf("%s", n_gerente);
+    printf("\nProducto o servicios que ofrece\n");
+    scanf("%s", pro_ser);
 
     int op;
     do {
         printf("\nMenú de opciones\n");
         printf("1. Balance general\n");
         printf("2. Nóminas de trabajador\n");
-        printf("3. Agregar empleado\n");
-        printf("4. Mostrar empleados\n");
-        printf("5. Actualizar empleado\n");
-        printf("6. Eliminar empleado\n");
-        printf("7. Salir\n");
+        printf("3. Salir\n");
         op = leerEntero("Ingrese una opción: ");
 
         switch (op) {
-            case 1:
+            case 1:{
+            do
+            {
+                system("cls");
+                printf("Ingrese opcion\n");
+                printf("1.  Abrir balance existente\n");
+                printf("2.  nuevo balance\n");
+                printf("3.  Salir\n");
+                scanf("%d", &op);
+            } while (op>3||op<1);
+            switch (op)
+            {
+            case 1:{
+                FILE *file = fopen(BALANCE_FILE, "r");
+                    if (file == NULL){
+                        printf("No se puede abrir.\n");
+                    }
+                }
+                break;
+            case 2:{
                 act_pas();
+            }  
+                break;
+            default:
+                break;
+            }
+        }
                 break;
             case 2:
                 nom();
                 break;
             case 3:
-                agregarEmpleado();
-                break;
-            case 4:
-                mostrarEmpleados();
-                break;
-            case 5:
-                actualizarEmpleado();
-                break;
-            case 6:
-                eliminarEmpleado();
-                break;
-            case 7:
                 printf("Saliendo del programa.\n");
                 break;
             default:
-                fprintf(stderr, "Opción no válida. Intente nuevamente.\n");
+                printf("Opción no válida. Intente nuevamente.\n");
         }
-    } while (op != 7);
+    } while (op>3||op<1);
 
     return 0;
 }
 
 // Implementación de funciones
 
-void agregarEmpleado() {
-    FILE *file = fopen(EMPLEADOS_FILE, "a");
-    if (file == NULL) {
-        fprintf(stderr, "No se pudo abrir el archivo de empleados.\n");
-        return;
-    }
-
-    struct Empleado emp; // Utilizamos la estructura Empleado aquí
-    leerCadena("Ingrese el nombre del empleado: ", emp.nombre, sizeof(emp.nombre));
-    emp.salario = leerFlotante("Ingrese el salario del empleado: ");
-
-    fprintf(file, "%s %.2f\n", emp.nombre, emp.salario);
-    fclose(file);
-
-    printf("Empleado agregado correctamente.\n");
-}
-
-void mostrarEmpleados() {
-    FILE *file = fopen(EMPLEADOS_FILE, "r");
-    if (file == NULL) {
-        fprintf(stderr, "No se pudo abrir el archivo de empleados.\n");
-        return;
-    }
-
-    struct Empleado emp; // Utilizamos la estructura Empleado aquí
-    printf("Listado de empleados:\n");
-    while (fscanf(file, "%s %f", emp.nombre, &emp.salario) != EOF) {
-        printf("Nombre: %s, Salario: %.2f\n", emp.nombre, emp.salario);
-    }
-
-    fclose(file);
-}
-
-void actualizarEmpleado() {
-    FILE *tempFile;
-    FILE *file = fopen(EMPLEADOS_FILE, "r");
-    if (file == NULL) {
-        fprintf(stderr, "No se pudo abrir el archivo de empleados.\n");
-        return;
-    }
-
-    tempFile = fopen("temp.txt", "w");
-    if (tempFile == NULL) {
-        fprintf(stderr, "No se pudo abrir el archivo temporal.\n");
-        fclose(file);
-        return;
-    }
-
-    struct Empleado emp; // Utilizamos la estructura Empleado aquí
-    char nombre[100];
-    printf("Ingrese el nombre del empleado a actualizar: ");
-    scanf("%s", nombre);
-    while (fscanf(file, "%s %f", emp.nombre, &emp.salario) != EOF) {
-        if (strcmp(nombre, emp.nombre) == 0) {
-            emp.salario = leerFlotante("Ingrese el nuevo salario: ");
-        }
-        fprintf(tempFile, "%s %.2f\n", emp.nombre, emp.salario);
-    }
-
-    fclose(file);
-    fclose(tempFile);
-    remove(EMPLEADOS_FILE);
-    rename("temp.txt", EMPLEADOS_FILE);
-
-    printf("Empleado actualizado correctamente.\n");
-}
-
-void eliminarEmpleado() {
-    FILE *tempFile;
-    FILE *file = fopen(EMPLEADOS_FILE, "r");
-    if (file == NULL) {
-        fprintf(stderr, "No se pudo abrir el archivo de empleados.\n");
-        return;
-    }
-
-    tempFile = fopen("temp.txt", "w");
-    if (tempFile == NULL) {
-        fprintf(stderr, "No se pudo abrir el archivo temporal.\n");
-        fclose(file);
-        return;
-    }
-
-    struct Empleado emp; // Utilizamos la estructura Empleado aquí
-    char nombre[100];
-    printf("Ingrese el nombre del empleado a eliminar: ");
-    scanf("%s", nombre);
-    while (fscanf(file, "%s %f", emp.nombre, &emp.salario) != EOF) {
-        if (strcmp(nombre, emp.nombre) != 0) {
-            fprintf(tempFile, "%s %.2f\n", emp.nombre, emp.salario);
-        }
-    }
-
-    fclose(file);
-    fclose(tempFile);
-    remove(EMPLEADOS_FILE);
-    rename("temp.txt", EMPLEADOS_FILE);
-
-    printf("Empleado eliminado correctamente.\n");
-}
-
 float leerBalance() {
     FILE *file = fopen(BALANCE_FILE, "r");
     if (file == NULL) {
-        fprintf(stderr, "No se pudo abrir el archivo de balance, creando uno nuevo con balance inicial de 0.0.\n");
+        fprintf(file, "No se pudo abrir el archivo de balance, creando uno nuevo con balance inicial de 0.0.\n");
         file = fopen(BALANCE_FILE, "w");
         if (file == NULL) {
-            fprintf(stderr, "No se pudo crear el archivo de balance.\n");
+            printf("No se pudo crear el archivo de balance.\n");
             return 0.0;
         }
         fprintf(file, "%.2f\n", 0.0);
@@ -209,8 +129,12 @@ void escribirBalance(float balance) {
 void balance(float act, float pas) {
     char ele[3];
     leerCadena("¿Ya has realizado el balance general? (si/no): ", ele, sizeof(ele));
-    for (char *p = ele; *p; ++p) *p = tolower(*p);
-
+    size_t longitud=strlen(ele);
+    for (size_t i = 0; i < longitud; i++)
+    {
+        ele[i]= (char)tolower((unsigned char)ele[i]);
+    }
+    
     if (strcmp(ele, "si") == 0) {
         int nc = leerEntero("Ingrese el número de tipos de capital: ");
 
@@ -256,6 +180,6 @@ void act_pas() {
         printf("Ingrese el tipo de pasivo %d: ", i + 1);
         leerCadena("", tip_pasivo[i], sizeof(tip_pasivo[i]));
         val_pasivo[i] = leerFlotante("Ingrese valor del pasivo: ");
-       
+       pas= pas + val_pasivo[i];
     }
 }

@@ -1,0 +1,1 @@
+extern void leer(int nt);

@@ -4,122 +4,65 @@
 #include"nominas.h"
 #include "nom2.h"
 
-// En el caso de que se eligió de manera Ascendente
-extern void Ascedente(int nt, int tip, struct noma *nomina){
-char aux[20];
-int auxn=0;
-double auxi=0;
-float auxs=0;
+
+
+void descendente(int nt, int tip, struct noma *nomina){
+   
    if (tip==1)
    {
     for (int i = 0; i < nt-1; i++)
     {
-        if (nomina[i].Salario_neto>nomina[i+1].salario)
+        for (int j = 0; j < nt-i-1; j++)
         {
-            //identificación
-            strcpy(aux, nomina[i].identificacion);
-            strcpy(nomina[i].identificacion, nomina[i+1].identificacion);
-            strcpy(nomina[i+1].identificacion, aux);
-            //Nombre
-            strcpy(aux, nomina[i].N_trabajador);
-            strcpy(nomina[i].N_trabajador, nomina[i+1].N_trabajador);
-            strcpy(nomina[i+1].N_trabajador, aux);
-            //Apellido
-            strcpy(aux, nomina[i].apellido);
-            strcpy(nomina[i].apellido, nomina[i+1].apellido);
-            strcpy(nomina[i+1].apellido, aux);
-            //Edad
-            auxn=nomina[i].edad;
-            nomina[i].edad=nomina[i+1].edad;
-            nomina[i+1].edad= auxn;
-            //Año de contratación
-            auxn=nomina[i].ANO_CONTRATACION;
-            nomina[i].ANO_CONTRATACION=nomina[i+1].ANO_CONTRATACION;
-            nomina[i+1].ANO_CONTRATACION= auxn;
-            //Años Trabajando
-            auxn=nomina[i].A_trabajados;
-            nomina[i].A_trabajados=nomina[i+1].A_trabajados;
-            nomina[i+1].A_trabajados= auxn;
-            //Salario
-            auxs=nomina[i].salario;
-            nomina[i].salario=nomina[i+1].salario;
-            nomina[i+1].salario= auxs;
-            //Salario neto
-            auxs=nomina[i].Salario_neto;
-            nomina[i].Salario_neto=nomina[i+1].Salario_neto;
-            nomina[i+1].Salario_neto= auxs;
-            //Aguinaldo
-            auxs=nomina[i].aguinaldo;
-            nomina[i].aguinaldo=nomina[i+1].aguinaldo;
-            nomina[i+1].aguinaldo= auxs;
-            //IR
-            auxi=nomina[i].IR;
-            nomina[i].IR=nomina[i+1].IR;
-            nomina[i+1].IR= auxi;
-            //Inss lab
-            auxi=nomina[i].INNS_Lab;
-            nomina[i].INNS_Lab=nomina[i+1].INNS_Lab;
-            nomina[i+1].INNS_Lab= auxi;
-            //Inns pat
-            auxi=nomina[i].INNS_Patr;
-            nomina[i].INNS_Patr=nomina[i+1].INNS_Patr;
-            nomina[i+1].INNS_Patr= auxi;
+            if (nomina[j].Salario_neto<nomina[j+1].Salario_neto)
+        {
+           ordenar(j, nomina);
         }
+        }
+        
     }
    }else
    {
     for (int i = 0; i < nt-1; i++)
     {
-        if (nomina[i].ANO_CONTRATACION>nomina[i+1].ANO_CONTRATACION)
+        for (int j = 0; j < nt-i-1; j++)
         {
-            //identificación
-            strcpy(aux, nomina[i].identificacion);
-            strcpy(nomina[i].identificacion, nomina[i+1].identificacion);
-            strcpy(nomina[i+1].identificacion, aux);
-            //Nombre
-            strcpy(aux, nomina[i].N_trabajador);
-            strcpy(nomina[i].N_trabajador, nomina[i+1].N_trabajador);
-            strcpy(nomina[i+1].N_trabajador, aux);
-            //Apellido
-            strcpy(aux, nomina[i].apellido);
-            strcpy(nomina[i].apellido, nomina[i+1].apellido);
-            strcpy(nomina[i+1].apellido, aux);
-            //Edad
-            auxn=nomina[i].edad;
-            nomina[i].edad=nomina[i+1].edad;
-            nomina[i+1].edad= auxn;
-            //Año de contratación
-            auxn=nomina[i].ANO_CONTRATACION;
-            nomina[i].ANO_CONTRATACION=nomina[i+1].ANO_CONTRATACION;
-            nomina[i+1].ANO_CONTRATACION= auxn;
-            //Años Trabajando
-            auxn=nomina[i].A_trabajados;
-            nomina[i].A_trabajados=nomina[i+1].A_trabajados;
-            nomina[i+1].A_trabajados= auxn;
-            //Salario
-            auxs=nomina[i].salario;
-            nomina[i].salario=nomina[i+1].salario;
-            nomina[i+1].salario= auxs;
-            //Salario neto
-            auxs=nomina[i].Salario_neto;
-            nomina[i].Salario_neto=nomina[i+1].Salario_neto;
-            nomina[i+1].Salario_neto= auxs;
-            //Aguinaldo
-            auxs=nomina[i].aguinaldo;
-            nomina[i].aguinaldo=nomina[i+1].aguinaldo;
-            nomina[i+1].aguinaldo= auxs;
-            //IR
-            auxi=nomina[i].IR;
-            nomina[i].IR=nomina[i+1].IR;
-            nomina[i+1].IR= auxi;
-            //Inss lab
-            auxi=nomina[i].INNS_Lab;
-            nomina[i].INNS_Lab=nomina[i+1].INNS_Lab;
-            nomina[i+1].INNS_Lab= auxi;
-            //Inns pat
-            auxi=nomina[i].INNS_Patr;
-            nomina[i].INNS_Patr=nomina[i+1].INNS_Patr;
-            nomina[i+1].INNS_Patr= auxi;
+            if (nomina[j].ANO_CONTRATACION<nomina[j+1].ANO_CONTRATACION)
+        {
+            ordenar(j, nomina);
+        }
+        }
+    }
+   }
+   //Llamado a imprimir en archivo
+    grabar(nt, nomina);
+}
+// En el caso de que se eligió de manera Ascendente
+void Ascedente(int nt, int tip, struct noma *nomina){
+
+     if (tip==1)
+   {
+    for (int i = 0; i < nt-1; i++)
+    {
+        for (int j = 0; j < nt-i-1; j++)
+        {
+            if (nomina[j].Salario_neto>nomina[j+1].Salario_neto)
+        {
+           ordenar(j, nomina);
+        }
+        }
+        
+    }
+   }else
+   {
+    for (int i = 0; i < nt-1; i++)
+    {
+        for (int j = 0; j < nt-i-1; j++)
+        {
+            if (nomina[i].ANO_CONTRATACION>nomina[i+1].ANO_CONTRATACION)
+        {
+            ordenar(i, nomina);
+        }
         }
     }
    }
@@ -127,7 +70,7 @@ float auxs=0;
     grabar(nt, nomina);
 }
 
-extern void ordenamiento(int nt, struct noma *nomi_na){
+void ordenamiento(int nt, struct noma *nomi_na){
     //Elección del tipo de ordenamiento
     int me, op, tip;
 do
@@ -157,7 +100,7 @@ do
             break;
         
         default:
-            Ascedente(nt, tip, nomi_na);
+            descendente(nt, tip, nomi_na);
         }
         break;
     }
@@ -174,15 +117,15 @@ do
            switch (op)
         {
         case 1:
+        Ascedente(nt,tip, nomi_na);
             break;
-        
         default:
-        break;
+         descendente(nt, tip, nomi_na);
         }
     }
 }
 }
-extern void impuesto(int nt, struct noma *nomi_lo){
+void impuesto(int nt, struct noma *nomi_lo){
     
     system("cls");
 
@@ -247,12 +190,12 @@ int elec, nt;
     {
     case 1:
     {    
-        if ((pt=fopen("nominas.txt", "r"))==NULL)
+        if ((pt=fopen("Nominas.txt", "r"))==NULL)
         {
             printf("\nNo existen registro\n");
             return;
         }else{
-
+            abrir ();
         }
         break;
     }
