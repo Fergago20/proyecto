@@ -38,7 +38,7 @@ int selec;
         break;
 
         case 4:{
-        
+        modificar();
     }
         break;
 
@@ -54,8 +54,10 @@ int selec;
 //Archivo
 extern void grabar(int nt, struct noma *nomina_f){
 FILE *pt;
+FILE * tam;
+tam= fopen ("tamano. txt", "w");
+fprintf(tam, "%d\n", nt);
 pt=fopen("Nominas.txt", "w");
-fprintf(pt, "%d\n", nt);
 for (int i = 0; i < nt; i++)
 {
     if (i<1)

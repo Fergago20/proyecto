@@ -125,7 +125,7 @@ do
     }
 }
 }
-void impuesto(int nt, struct noma *nomi_lo){
+extern void impuesto(int nt, struct noma *nomi_lo){
     
     system("cls");
 
@@ -167,7 +167,6 @@ void impuesto(int nt, struct noma *nomi_lo){
         }
       system("cls");  
     }
-    ordenamiento(nt, nomi_lo);
 }
 
 
@@ -197,6 +196,7 @@ int elec, nt;
             printf("\nNo existen registro\n");
             return;
         }else{
+            fclose(pt);
             abrir ();
         }
         break;
@@ -253,6 +253,7 @@ int elec, nt;
             system("cls");
         }
         impuesto(nt, nomi);
+        ordenamiento(nt, nomi);
     }  
     break;
     default:
