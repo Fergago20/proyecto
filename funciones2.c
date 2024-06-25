@@ -29,11 +29,11 @@ int selec;
         break;
 
     case 2:{
-        
+        buscar();
     }
         break;
         case 3:{
-        
+        eliminar();
     }
         break;
 
