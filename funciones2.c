@@ -24,10 +24,7 @@ int selec;
     switch (selec)
     {
     case 1:{
-        int nt;
-        printf("\nCantidad de trabajadores a leer\n");
-        scanf("%d", &nt);
-        leer (nt);
+        leer ();
     }
         break;
 
@@ -58,7 +55,7 @@ int selec;
 extern void grabar(int nt, struct noma *nomina_f){
 FILE *pt;
 pt=fopen("Nominas.txt", "w");
-
+fprintf(pt, "%d\n", nt);
 for (int i = 0; i < nt; i++)
 {
     if (i<1)

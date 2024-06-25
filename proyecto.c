@@ -37,20 +37,52 @@ float leerFlotante(const char* mensaje) {
 
 int main() {
     char n_empresa[20], n_gerente[20], pro_ser[20];
+    FILE * us;
+    us = fopen("usuario.txt", "r");
+    if (us == NULL){
+    us = fopen("usuario.txt", "w");
+    printf("Crear usuario.\n");
     printf("Ingrese nombre de la empresa\n");
     scanf("%s", n_empresa);
     printf("\nNombre del gerente\n");
     scanf("%s", n_gerente);
     printf("\nProducto o servicios que ofrece\n");
     scanf("%s", pro_ser);
-
+    fprintf(us, "%s %s %s", n_gerente, n_empresa, pro_ser);
+    fclose(us);
     int op;
+     do
+            {
+                system("cls");
+                printf("Ingrese opcion\n");
+                printf("1.  Balance general\n");
+                printf("2.  Nominas\n");
+                printf("3.  Salir\n");
+                scanf("%d", &op);
+            } while (op>3||op<1);
+
+            if (op==1)
+            {
+                act_pas();
+                
+            }else if (op==2)
+            {
+                nom();
+            }
+    
+    }
+    else{
+        fscanf(us, "%s",n_gerente);
+        printf("Bienvenido %s", n_gerente);
+        fclose(us);
+        int op;
     do {
-        printf("\nMenú de opciones\n");
+        printf("\nMenu de opciones\n");
         printf("1. Balance general\n");
-        printf("2. Nóminas de trabajador\n");
-        printf("3. Salir\n");
-        op = leerEntero("Ingrese una opción: ");
+        printf("2. Nominas de trabajador\n");
+        printf("3. Eliminar usuario\n");
+        printf("4.  Salir\n");
+        op = leerEntero("Ingrese una opcion: ");
 
         switch (op) {
             case 1:{
@@ -84,13 +116,19 @@ int main() {
             case 2:
                 nom();
                 break;
-            case 3:
-                printf("Saliendo del programa.\n");
+            case 3:{
+                remove("usuario.txt");
+
+            }
                 break;
+            case 4:
+            printf("Saliendo del programa.\n");
+            break;
             default:
                 printf("Opción no válida. Intente nuevamente.\n");
         }
     } while (op>3||op<1);
+    }
 
     return 0;
 }

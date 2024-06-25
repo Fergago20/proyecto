@@ -170,6 +170,8 @@ void impuesto(int nt, struct noma *nomi_lo){
     ordenamiento(nt, nomi_lo);
 }
 
+
+
 extern void nom (){
 int elec, nt;
     system("cls");

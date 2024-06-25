@@ -5,11 +5,14 @@
 #include "nom.h"
 #include "nom2.h"
 
-extern void leer(int nt){
-
-struct noma nomina_f[nt];
-    FILE *pt;
+extern void leer(){
+FILE *pt;
 pt=fopen("Nominas.txt", "r");
+int nt;
+
+fscanf(pt, "%d",&nt);
+struct noma nomina_f[nt];
+
 
 for (int i = 0; i < nt; i++)
 {
