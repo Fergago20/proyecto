@@ -4,7 +4,7 @@
 #include"nominas.h"
 #include "nom2.h"
 
-
+//ordanmiento descendente
 
 void descendente(int nt, int tip, struct noma *nomina){
    
@@ -125,6 +125,32 @@ do
     }
 }
 }
+
+//Archivo y guardado de vacaciones
+
+extern void vacaciones (int nt, struct noma * nomi_lo){
+    for (int i = 0; i < nt; i++)
+    {
+         printf("Dias tomados hasta ahora por el trabajador %d.\n", i+1);
+        scanf("%d", &nomi_lo[i].Dias_vac);
+        nomi_lo[i].vacacionesd= 30 - nomi_lo[i].Dias_vac;
+        nomi_lo[i].vacaciones= (float)nomi_lo[i].vacacionesd*(nomi_lo[i].Salario_neto/30);
+    }
+        FILE *v = fopen("Vacaciones.txt", "w");
+        for (int i = 0; i < nt; i++)
+        {
+            if (i==0)
+            {
+                fprintf(v, "%s %s %d %.2f", nomi_lo[i].N_trabajador, nomi_lo[i].apellido, nomi_lo[i].vacacionesd, nomi_lo[i].vacaciones);
+            }else{
+                 fprintf(v, "\n%s %s %d %.2f", nomi_lo[i].N_trabajador, nomi_lo[i].apellido, nomi_lo[i].vacacionesd, nomi_lo[i].vacaciones);
+            }
+            
+        }
+        
+
+}
+
 extern void impuesto(int nt, struct noma *nomi_lo){
     
     system("cls");
@@ -134,10 +160,6 @@ extern void impuesto(int nt, struct noma *nomi_lo){
     for (int i = 0; i < nt; i++)
     {
         nomi_lo[i].aguinaldo=nomi_lo[i].Salario_neto;
-        printf("Dias tomados hasta ahora por el trabajador %d.\n", i+1);
-        scanf("%d", &nomi_lo[i].Dias_vac);
-        nomi_lo[i].vacacionesd= 30 - nomi_lo[i].Dias_vac;
-        nomi_lo[i].vacaciones= (float)nomi_lo[i].vacacionesd*(nomi_lo[i].Salario_neto/30);
         nomi_lo[i].INNS_Lab= (double)nomi_lo[i].Salario_neto*0.07;
 
         if (nt<50)
@@ -254,6 +276,7 @@ int elec, nt;
         }
         impuesto(nt, nomi);
         ordenamiento(nt, nomi);
+        vacaciones (nt, nomi);
     }  
     break;
     default:
