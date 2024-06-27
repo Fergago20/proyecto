@@ -43,7 +43,7 @@ int selec;
         break;
 
         case 5:{
-        
+        orden();
     }
         break;
     default:
@@ -73,7 +73,6 @@ for (int i = 0; i < nt; i++)
     
 }
 fclose(pt);
-nom();
 }
 
 //Parte de ordenar

@@ -18,6 +18,7 @@ tam= fopen ("tamano. txt", "r");
 fscanf(tam, "%d",&nt);
 struct noma nomina_f[nt];
 
+fflush(stdin);
 
 for (int i = 0; i < nt; i++)
 {
@@ -25,10 +26,13 @@ for (int i = 0; i < nt; i++)
         fscanf(pt, "%s %s %s %d", nomina_f[i].identificacion, nomina_f[i].N_trabajador, nomina_f[i].apellido, &nomina_f[i].edad);
         fscanf(pt, "%d %d %f %f", &nomina_f[i].ANO_CONTRATACION, &nomina_f[i].A_trabajados, &nomina_f[i].salario, &nomina_f[i].Salario_neto);
         fscanf(pt, "%f %lf %lf %lf", &nomina_f[i].aguinaldo, &nomina_f[i].IR, &nomina_f[i].INNS_Lab, &nomina_f[i].INNS_Patr);
-
-        printf( "\n%s %s %s %d\n", nomina_f[i].identificacion, nomina_f[i].N_trabajador, nomina_f[i].apellido, nomina_f[i].edad);
-        printf( "%d %d %.2f %.2f\n", nomina_f[i].ANO_CONTRATACION, nomina_f[i].A_trabajados, nomina_f[i].salario, nomina_f[i].Salario_neto);
-        printf( "%.2f %.2f %.2f %.2f\n", nomina_f[i].aguinaldo, nomina_f[i].IR, nomina_f[i].INNS_Lab, nomina_f[i].INNS_Patr);
+        
+        printf("\nIdentificacion\tNombre\tApellido\nEdad\n");
+        printf( "%s\t%s\t%s\t%d\n", nomina_f[i].identificacion, nomina_f[i].N_trabajador, nomina_f[i].apellido, nomina_f[i].edad);
+        printf("\nAnno de contratacion\tAnnos trabajados\tSalario h_extra\nSalario neto\n");
+        printf( "%d\t%d\t%.2f\t%.2f\n", nomina_f[i].ANO_CONTRATACION, nomina_f[i].A_trabajados, nomina_f[i].salario, nomina_f[i].Salario_neto);
+        printf("\nAguinaldo\tImpuesto IR\tINNS Laboral\nINNS Patronal\n");
+        printf( "%.2f\t%.2f\t%.2f\t%.2f\n", nomina_f[i].aguinaldo, nomina_f[i].IR, nomina_f[i].INNS_Lab, nomina_f[i].INNS_Patr);
     
     
 }
@@ -161,9 +165,13 @@ extern void buscar (){
         if (strcmp(codigo,nomina_f[i].identificacion)==0)
         {
         printf("\nTrabajador encontrado\n");
-        printf("%s %s %s %d\n", nomina_f[i].identificacion, nomina_f[i].N_trabajador, nomina_f[i].apellido, nomina_f[i].edad);
-        printf("%d %d %.2f %.2f\n", nomina_f[i].ANO_CONTRATACION, nomina_f[i].A_trabajados, nomina_f[i].salario, nomina_f[i].Salario_neto);
-        printf("%.2f %.2lf %.2lf %.2lf\n", nomina_f[i].aguinaldo, nomina_f[i].IR, nomina_f[i].INNS_Lab, nomina_f[i].INNS_Patr);
+        printf("\nIdentificacion\tNombre\tApellido\nEdad\n");
+        printf( "%s\t%s\t%s\t%d\n", nomina_f[i].identificacion, nomina_f[i].N_trabajador, nomina_f[i].apellido, nomina_f[i].edad);
+        printf("\nAnno de contratacion\tAnnos trabajados\tSalario h_extra\nSalario neto\n");
+        printf( "%d\t%d\t%.2f\t%.2f\n", nomina_f[i].ANO_CONTRATACION, nomina_f[i].A_trabajados, nomina_f[i].salario, nomina_f[i].Salario_neto);
+        printf("\nAguinaldo\tImpuesto IR\tINNS Laboral\nINNS Patronal\n");
+        printf( "%.2f\t%.2f\t%.2f\t%.2f\n", nomina_f[i].aguinaldo, nomina_f[i].IR, nomina_f[i].INNS_Lab, nomina_f[i].INNS_Patr);
+    
         }
         }
 
@@ -236,5 +244,54 @@ extern void eliminar (){
         rename("remplazo.txt","Nominas.txt");
         remove("tamano. txt");
         rename("tam.txt", "tamano. txt");
+        nom();
+}
+
+extern void orden (){
+
+        system("cls");
+
+        FILE *pt;
+        pt=fopen("Nominas.txt", "r");
+        int nt;
+
+        FILE *t;
+        t=fopen("remplazo.txt", "w");
+
+        FILE * tam;
+        tam= fopen ("tamano. txt", "r");
+
+        fscanf(tam, "%d", &nt);
+        struct noma nomina_f[nt];
+
+        for (int i = 0; i < nt; i++)
+        {
+        
+        fscanf(pt, "%s %s %s %d", nomina_f[i].identificacion, nomina_f[i].N_trabajador, nomina_f[i].apellido, &nomina_f[i].edad);
+        fscanf(pt, "%d %d %f %f", &nomina_f[i].ANO_CONTRATACION, &nomina_f[i].A_trabajados, &nomina_f[i].salario, &nomina_f[i].Salario_neto);
+        fscanf(pt, "%f %lf %lf %lf", &nomina_f[i].aguinaldo, &nomina_f[i].IR, &nomina_f[i].INNS_Lab, &nomina_f[i].INNS_Patr);  
+        }
+        ordenamiento(nt, nomina_f);
+
+        for (int i = 0; i < nt; i++)
+        {
+                if (i<1)
+    {
+        fprintf(t, "%s %s %s %d\n", nomina_f[i].identificacion, nomina_f[i].N_trabajador, nomina_f[i].apellido, nomina_f[i].edad);
+        fprintf(t, "%d %d %f %f\n", nomina_f[i].ANO_CONTRATACION, nomina_f[i].A_trabajados, nomina_f[i].salario, nomina_f[i].Salario_neto);
+        fprintf(t, "%f %f %f %f", nomina_f[i].aguinaldo, nomina_f[i].IR, nomina_f[i].INNS_Lab, nomina_f[i].INNS_Patr);
+    }else{
+        fprintf(t, "\n%s %s %s %d\n", nomina_f[i].identificacion, nomina_f[i].N_trabajador, nomina_f[i].apellido, nomina_f[i].edad);
+        fprintf(t, "%d %d %f %f\n", nomina_f[i].ANO_CONTRATACION, nomina_f[i].A_trabajados, nomina_f[i].salario, nomina_f[i].Salario_neto);
+        fprintf(t, "%f %f %f %f", nomina_f[i].aguinaldo, nomina_f[i].IR, nomina_f[i].INNS_Lab, nomina_f[i].INNS_Patr);
+    }
+        }
+        
+        fclose(pt);
+        fclose(t);
+        fclose(tam);
+
+        remove("Nominas.txt");
+        rename("remplazo.txt","Nominas.txt");
         nom();
 }

@@ -34,8 +34,6 @@ void descendente(int nt, int tip, struct noma *nomina){
         }
     }
    }
-   //Llamado a imprimir en archivo
-    grabar(nt, nomina);
 }
 // En el caso de que se eligió de manera Ascendente
 void Ascedente(int nt, int tip, struct noma *nomina){
@@ -66,11 +64,9 @@ void Ascedente(int nt, int tip, struct noma *nomina){
         }
     }
    }
-   //Llamado a imprimir en archivo
-    grabar(nt, nomina);
 }
 
-void ordenamiento(int nt, struct noma *nomi_na){
+extern void ordenamiento(int nt, struct noma *nomi_na){
     //Elección del tipo de ordenamiento
     int me, op, tip;
 do
@@ -225,6 +221,8 @@ int elec, nt;
     }
     case 2:
     {
+        remove("Nominas.txt");
+        remove("tamano. txt");
         //Recolección de datos
         system ("cls");
         char cad1[7], cad2[7], se[5];
@@ -277,6 +275,8 @@ int elec, nt;
         impuesto(nt, nomi);
         ordenamiento(nt, nomi);
         vacaciones (nt, nomi);
+        grabar(nt, nomi);
+        return;
     }  
     break;
     default:
