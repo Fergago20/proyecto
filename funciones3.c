@@ -29,11 +29,11 @@ for (int i = 0; i < nt; i++)
         fscanf(pt, "%d %d %f %f", &nomina_f[i].ANO_CONTRATACION, &nomina_f[i].A_trabajados, &nomina_f[i].salario, &nomina_f[i].Salario_neto);
         fscanf(pt, "%f %lf %lf %lf", &nomina_f[i].aguinaldo, &nomina_f[i].IR, &nomina_f[i].INNS_Lab, &nomina_f[i].INNS_Patr);
         
-        printf("\nIdentificacion\tNombre\tApellido\nEdad\n");
+        printf("\nIdentificacion\tNombre\tApellido\tEdad\n");
         printf( "%s\t%s\t%s\t%d\n", nomina_f[i].identificacion, nomina_f[i].N_trabajador, nomina_f[i].apellido, nomina_f[i].edad);
-        printf("\nAnno de contratacion\tAnnos trabajados\tSalario h_extra\nSalario neto\n");
+        printf("\nAnno de contratacion\tAnnos trabajados\tSalario h_extra\tSalario neto\n");
         printf( "%d\t%d\t%s%.2f\t%s%.2f\n", nomina_f[i].ANO_CONTRATACION, nomina_f[i].A_trabajados, lc->currency_symbol, nomina_f[i].salario, lc->currency_symbol, nomina_f[i].Salario_neto);
-        printf("\nAguinaldo\tImpuesto IR\tINNS Laboral\nINNS Patronal\n");
+        printf("\nAguinaldo\tImpuesto IR\tINNS Laboral\tINNS Patronal\n");
         printf( "%s%.2f\t%s%.2f\t%s%.2f\t%s%.2f\n",lc->currency_symbol, nomina_f[i].aguinaldo, lc->currency_symbol, nomina_f[i].IR, lc->currency_symbol, nomina_f[i].INNS_Lab, lc->currency_symbol, nomina_f[i].INNS_Patr);
     
     
@@ -168,11 +168,11 @@ struct lconv *lc = localeconv();
         if (strcmp(codigo,nomina_f[i].identificacion)==0)
         {
         printf("\nTrabajador encontrado\n");
-        printf("\nIdentificacion\tNombre\tApellido\nEdad\n");
+        printf("\nIdentificacion\tNombre\tApellido\tEdad\n");
         printf( "%s\t%s\t%s\t%d\n", nomina_f[i].identificacion, nomina_f[i].N_trabajador, nomina_f[i].apellido, nomina_f[i].edad);
-        printf("\nAnno de contratacion\tAnnos trabajados\tSalario h_extra\nSalario neto\n");
+        printf("\nAnno de contratacion\tAnnos trabajados\tSalario h_extra\tSalario neto\n");
         printf( "%d\t%d\t%s%.2f\t%s%.2f\n", nomina_f[i].ANO_CONTRATACION, nomina_f[i].A_trabajados, lc->currency_symbol, nomina_f[i].salario, lc->currency_symbol, nomina_f[i].Salario_neto);
-        printf("\nAguinaldo\tImpuesto IR\tINNS Laboral\nINNS Patronal\n");
+        printf("\nAguinaldo\tImpuesto IR\tINNS Laboral\tINNS Patronal\n");
         printf( "%s%.2f\t%s%.2f\t%s%.2f\t%s%.2f\n", lc->currency_symbol, nomina_f[i].aguinaldo, lc->currency_symbol, nomina_f[i].IR, lc->currency_symbol, nomina_f[i].INNS_Lab, lc->currency_symbol, nomina_f[i].INNS_Patr);
     
         }
