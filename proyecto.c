@@ -71,7 +71,7 @@ int main() {
                 printf("2.  Nominas\n");
                 printf("3.  Salir\n");
                 scanf("%d", &op);
-            } while (op>3||op<1);
+            } while (op!=3);
 
             if (op==1)
             {

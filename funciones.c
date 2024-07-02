@@ -4,6 +4,7 @@
 #include"nominas.h"
 #include "nom2.h"
 #include <locale.h>
+#include "nom3.h"
 
 //ordanmiento descendente
 
