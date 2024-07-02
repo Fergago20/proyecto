@@ -4,10 +4,12 @@
 #include"nominas.h"
 #include "nom.h"
 #include "nom2.h"
+#include <locale.h>
 
 //Función para leer datos
 
 extern void leer(){
+        struct lconv *lc = localeconv();
 FILE *pt;
 pt=fopen("Nominas.txt", "r");
 int nt;
@@ -30,9 +32,9 @@ for (int i = 0; i < nt; i++)
         printf("\nIdentificacion\tNombre\tApellido\nEdad\n");
         printf( "%s\t%s\t%s\t%d\n", nomina_f[i].identificacion, nomina_f[i].N_trabajador, nomina_f[i].apellido, nomina_f[i].edad);
         printf("\nAnno de contratacion\tAnnos trabajados\tSalario h_extra\nSalario neto\n");
-        printf( "%d\t%d\t%.2f\t%.2f\n", nomina_f[i].ANO_CONTRATACION, nomina_f[i].A_trabajados, nomina_f[i].salario, nomina_f[i].Salario_neto);
+        printf( "%d\t%d\t%s%.2f\t%s%.2f\n", nomina_f[i].ANO_CONTRATACION, nomina_f[i].A_trabajados, lc->currency_symbol, nomina_f[i].salario, lc->currency_symbol, nomina_f[i].Salario_neto);
         printf("\nAguinaldo\tImpuesto IR\tINNS Laboral\nINNS Patronal\n");
-        printf( "%.2f\t%.2f\t%.2f\t%.2f\n", nomina_f[i].aguinaldo, nomina_f[i].IR, nomina_f[i].INNS_Lab, nomina_f[i].INNS_Patr);
+        printf( "%s%.2f\t%s%.2f\t%s%.2f\t%s%.2f\n",lc->currency_symbol, nomina_f[i].aguinaldo, lc->currency_symbol, nomina_f[i].IR, lc->currency_symbol, nomina_f[i].INNS_Lab, lc->currency_symbol, nomina_f[i].INNS_Patr);
     
     
 }
@@ -140,6 +142,7 @@ extern void modificar (){
 
 extern void buscar (){
 
+struct lconv *lc = localeconv();
         system("cls");
 
         FILE *pt;
@@ -168,9 +171,9 @@ extern void buscar (){
         printf("\nIdentificacion\tNombre\tApellido\nEdad\n");
         printf( "%s\t%s\t%s\t%d\n", nomina_f[i].identificacion, nomina_f[i].N_trabajador, nomina_f[i].apellido, nomina_f[i].edad);
         printf("\nAnno de contratacion\tAnnos trabajados\tSalario h_extra\nSalario neto\n");
-        printf( "%d\t%d\t%.2f\t%.2f\n", nomina_f[i].ANO_CONTRATACION, nomina_f[i].A_trabajados, nomina_f[i].salario, nomina_f[i].Salario_neto);
+        printf( "%d\t%d\t%s%.2f\t%s%.2f\n", nomina_f[i].ANO_CONTRATACION, nomina_f[i].A_trabajados, lc->currency_symbol, nomina_f[i].salario, lc->currency_symbol, nomina_f[i].Salario_neto);
         printf("\nAguinaldo\tImpuesto IR\tINNS Laboral\nINNS Patronal\n");
-        printf( "%.2f\t%.2f\t%.2f\t%.2f\n", nomina_f[i].aguinaldo, nomina_f[i].IR, nomina_f[i].INNS_Lab, nomina_f[i].INNS_Patr);
+        printf( "%s%.2f\t%s%.2f\t%s%.2f\t%s%.2f\n", lc->currency_symbol, nomina_f[i].aguinaldo, lc->currency_symbol, nomina_f[i].IR, lc->currency_symbol, nomina_f[i].INNS_Lab, lc->currency_symbol, nomina_f[i].INNS_Patr);
     
         }
         }

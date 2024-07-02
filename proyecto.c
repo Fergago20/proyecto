@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #include "nom.h"
+#include <locale.h>
 #define BALANCE_FILE "balance.txt"
 
 
@@ -35,8 +36,18 @@ float leerFlotante(const char* mensaje) {
     scanf("%f", &valor);
     return valor;
 }
+void mostrarmoneda(float cantidad) {
+    // Obtener la configuración de la moneda local
+    struct lconv *lc = localeconv();
+
+    // Imprimir la cantidad con la configuración de la moneda local
+    printf("%s%.2f\n", lc->currency_symbol, cantidad);
+}
 
 int main() {
+
+    setlocale(LC_ALL, "");
+
     char n_empresa[20], n_gerente[20], pro_ser[20];
     FILE * us;
     us = fopen("usuario.txt", "r");
@@ -69,6 +80,8 @@ int main() {
             }else if (op==2)
             {
                 nom();
+            } else{
+                return 0;
             }
     
     }
@@ -108,6 +121,14 @@ int main() {
                 }
                 break;
             case 2:{
+                remove (BALANCE_FILE);
+                remove("tactivos.txt");
+                remove("tactivos.txt");
+                remove("activos.txt");
+                remove("tpasivos.txt");
+                remove("pasivos.txt");
+                remove("tcapital.txt");
+                remove("capital.txt");
                 act_pas();
             }  
                 break;
@@ -147,10 +168,10 @@ if (file!=NULL)
     FILE *fi= fopen(nombre2, "r");
     while (fscanf(file, "%s", nombre) != EOF && fscanf(fi, "%f", &valor) != EOF)
     {
-        printf("\n%s", nombre);
-        printf("\n%.2f", valor);
+        printf("\n%s ", nombre);
+        mostrarmoneda( valor);
     }
-    
+    system("pause");
 fclose(file);
 fclose(fi);
 }else{
@@ -159,8 +180,13 @@ fclose(fi);
     fscanf(fil, "%f %f %f", &act, &pas, &cap);
     printf("\nValores del balance\n");
     printf("Activo\tPasivo\nCapital\n");
-    printf("%.2f\t%.2f\t%.2f", act, pas, cap);
+    mostrarmoneda( act);
+    printf("\t");
+    mostrarmoneda( pas);
+    printf("\t");
+    mostrarmoneda(cap);
     fclose(fil);
+    system("pause");
 }
 }
 
@@ -170,7 +196,6 @@ void leerBalance(){
         printf("No se pudo abrir el archivo de balance.\n");
     
         fclose(file);
-        nom();
     }else{
         system("cls");
         int op;
