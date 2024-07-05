@@ -57,6 +57,7 @@ FILE *pt;
 FILE * tam;
 tam= fopen ("tamano. txt", "w");
 fprintf(tam, "%d\n", nt);
+fclose(tam);
 pt=fopen("Nominas.txt", "w");
 for (int i = 0; i < nt; i++)
 {

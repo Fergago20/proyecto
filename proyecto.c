@@ -66,12 +66,13 @@ int main() {
      do
             {
                 system("cls");
+                printf("Si ya realizo un trabajo, cierre el programa\n");
                 printf("Ingrese opcion\n");
                 printf("1.  Balance general\n");
                 printf("2.  Nominas\n");
                 printf("3.  Salir\n");
                 scanf("%d", &op);
-            } while (op!=3);
+            
 
             if (op==1)
             {
@@ -83,14 +84,17 @@ int main() {
             } else{
                 return 0;
             }
+            } while (op!=3);
     
     }
-    else{
+    else{system("cls");
         fscanf(us, "%s",n_gerente);
-        printf("Bienvenido %s", n_gerente);
+        printf("Bienvenido %s\n\n", n_gerente);
         fclose(us);
         int op;
+        system ("pause");
     do {
+        system("cls");
         printf("\nMenu de opciones\n");
         printf("1. Balance general\n");
         printf("2. Nominas de trabajador\n");
@@ -141,8 +145,25 @@ int main() {
                 nom();
                 break;
             case 3:{
+                us = fopen("usuario.txt", "r");
+                if (us == NULL){
+                    system("cls");
+                    printf("Ya elimino un usuario\n");
+                    system("pause");
+                }
+                fclose(us);
                 remove("usuario.txt");
-
+                remove (BALANCE_FILE);
+                remove("tactivos.txt");
+                remove("tactivos.txt");
+                remove("activos.txt");
+                remove("tpasivos.txt");
+                remove("pasivos.txt");
+                remove("tcapital.txt");
+                remove("capital.txt");
+                remove("Nominas.txt");
+                remove("tamano. txt");
+                
             }
                 break;
             case 4:
@@ -201,7 +222,7 @@ void leerBalance(){
         int op;
         do
         {
-            printf("Escoja una opción para leer\n");
+            printf("Escoja una opcion para leer\n");
             printf("1.  Leer Activos\n");
             printf("2.  Leer Pasivos\n");
             printf("3.  Leer capital\n");
@@ -256,7 +277,7 @@ void balance(float act, float pas) {
     }
     
     if (strcmp(ele, "si") == 0) {
-        int nc = leerEntero("Ingrese el número de tipos de capital: ");
+        int nc = leerEntero("Ingrese el numero de tipos de capital: ");
 
         char tip_capital[nc][50];
         float val_cap[nc], cap = 0;
@@ -283,7 +304,7 @@ void balance(float act, float pas) {
 }
 
 void act_pas() {
-    int na = leerEntero("Ingrese número de activos: ");
+    int na = leerEntero("Ingrese numero de activos: ");
 
     char tip_activo[na][50];
     float val_activo[na], act = 0;

@@ -19,6 +19,7 @@ tam= fopen ("tamano. txt", "r");
 
 fscanf(tam, "%d",&nt);
 struct noma nomina_f[nt];
+fclose(tam);
 
 fflush(stdin);
 
@@ -205,14 +206,10 @@ extern void eliminar (){
         
         struct noma nomina_f[nt];
         char codigo[20];
-        int cant;
+        int eli=nt;
 
-        printf("Cantidad de trabajadores a eliminar\n");
-        scanf("%d", &cant);
 
-        for (int i = 0; i < cant; i++)
-        {
-        printf("Ingrese identificacion del trabajador a eleiminar\n");
+        printf("Ingrese identificacion del trabajador a eliminar\n");
         scanf("%s", codigo);
         for (int j = 0; j < nt; j++)
         {
@@ -221,22 +218,16 @@ extern void eliminar (){
         fscanf(pt, "%f %lf %lf %lf", &nomina_f[j].aguinaldo, &nomina_f[j].IR, &nomina_f[j].INNS_Lab, &nomina_f[j].INNS_Patr); 
         if (strcmp(codigo,nomina_f[j].identificacion)!=0)
         {
-             if (j==nt-1)
-        {
-        fprintf(t, "%s %s %s %d\n", nomina_f[j].identificacion, nomina_f[j].N_trabajador, nomina_f[j].apellido, nomina_f[j].edad);
-        fprintf(t, "%d %d %f %f\n", nomina_f[j].ANO_CONTRATACION, nomina_f[j].A_trabajados, nomina_f[j].salario, nomina_f[j].Salario_neto);
-        fprintf(t, "%f %f %f %f", nomina_f[j].aguinaldo, nomina_f[j].IR, nomina_f[j].INNS_Lab, nomina_f[j].INNS_Patr);
-        }else{
         fprintf(t, "%s %s %s %d\n", nomina_f[j].identificacion, nomina_f[j].N_trabajador, nomina_f[j].apellido, nomina_f[j].edad);
         fprintf(t, "%d %d %f %f\n", nomina_f[j].ANO_CONTRATACION, nomina_f[j].A_trabajados, nomina_f[j].salario, nomina_f[j].Salario_neto);
         fprintf(t, "%f %f %f %f\n", nomina_f[j].aguinaldo, nomina_f[j].IR, nomina_f[j].INNS_Lab, nomina_f[j].INNS_Patr);
-        }
+        
         }else{
-                nt=nt -1;
+                eli= eli -1;
         }
         }
-        }
-        fprintf(ta, "%d", nt);
+        
+        fprintf(ta, "%d", eli);
         
         fclose(pt);
         fclose(t);
